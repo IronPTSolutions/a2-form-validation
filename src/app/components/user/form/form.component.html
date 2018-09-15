@@ -1,0 +1,41 @@
+<form #form="ngForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1"
+      name="email"
+      aria-describedby="emailHelp" placeholder="Enter email"
+      [(ngModel)]="user.email"
+      required
+      minlength="6"
+      autocomplete="off"
+      [class.is-invalid]="email.touched && !email.valid"
+      [class.is-valid]="email.touched && email.valid"
+      [class.text-success]="email.touched && email.valid"
+      [class.text-danger]="email.touched && email.invalid"
+      #email="ngModel">
+  </div>
+    
+
+  <div class="alert alert-danger" *ngIf="!form.valid && form.touched">
+
+    <div *ngIf="!email.valid && email.touched && email.errors.required">
+      email is required!
+    </div>
+
+    <div *ngIf="!email.valid && email.touched && email.errors.minlength">
+      {{ email.value }} length <b>{{ email.errors.minlength.actualLength }}</b>
+      is not <b>{{ email.errors.minlength.requiredLength}}</b>
+    </div>
+  </div>
+
+  <div class="alert alert-success" *ngIf="form.valid">
+    OHH YEAH!
+  </div>
+
+  <button type="submit"
+    [disabled]="!form.valid"
+    class="btn"
+    [class.btn-success]="form.valid"
+    [class.btn-danger]="!form.valid"
+    >Enviar</button>
+</form>
